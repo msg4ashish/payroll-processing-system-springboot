@@ -13,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.opencsv.exceptions.CsvException;
 import com.pps.payroll.dto.PayrollFileResponseDTO;
 import com.pps.payroll.service.CSVFileProcessorService;
-import com.pps.payroll.service.JSONFileProcessorService;
 import com.pps.payroll.service.PayrollFileService;
 
 /**
@@ -30,10 +29,6 @@ public class PayrollFileServiceImpl implements PayrollFileService {
 	@Autowired
 	@Qualifier("csvReaderServiceImpl")
 	private CSVFileProcessorService csvReaderServiceImpl;
-	
-	@Autowired
-	@Qualifier("JSONFileServiceImpl")
-	private JSONFileProcessorService jsonFileReaderService;
 	
 	
 	/**
