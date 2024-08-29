@@ -16,6 +16,8 @@ import com.pps.payroll.validator.RecordValidator;
 import com.pps.payroll.mapper.PayrollRecordMapper;
 import com.pps.payroll.ApplicationConstants;
 import com.pps.payroll.dao.EmployeePayrollDao;
+import com.pps.payroll.dto.EmployeeEventRecord;
+import com.pps.payroll.dto.OnboardEmployeeRecord;
 import com.pps.payroll.entity.Employee;
 import com.pps.payroll.entity.EmployeeEvent;
 
