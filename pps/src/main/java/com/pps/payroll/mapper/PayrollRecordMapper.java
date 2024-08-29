@@ -1,7 +1,11 @@
 package com.pps.payroll.mapper;
 
+import java.time.LocalDate;
+
 import com.pps.payroll.dto.EmployeeEventRecord;
 import com.pps.payroll.dto.OnboardEmployeeRecord;
+import com.pps.payroll.entity.Employee;
+import com.pps.payroll.entity.EmployeeEvent;
 import com.pps.payroll.enums.*;
 
 /**
@@ -45,6 +49,33 @@ public class PayrollRecordMapper {
                 row[EmployeeEventRecordFields.EVENT_DATE.getFieldPosition()],
                 row[EmployeeEventRecordFields.NOTES.getFieldPosition()]
         );
+    }
+    
+    
+    public static Employee mapToEmployeeEntity(String[] row) {
+    	Employee employeeEntity = new Employee();
+    	employeeEntity.setEmployeeId(row[OnboardEmployeeRecordFields.EMPLOYEE_ID.getFieldPosition()]);
+    	employeeEntity.setFirstName(row[OnboardEmployeeRecordFields.FIRST_NAME.getFieldPosition()]);
+    	employeeEntity.setLastName(row[OnboardEmployeeRecordFields.LAST_NAME.getFieldPosition()]);
+    	employeeEntity.setDesignation(row[OnboardEmployeeRecordFields.DESIGNATION.getFieldPosition()]);
+    	employeeEntity.setEventValue(row[OnboardEmployeeRecordFields.EVENT_VALUE.getFieldPosition()]);
+    	employeeEntity.setNotes(row[OnboardEmployeeRecordFields.NOTES.getFieldPosition()]);
+    	
+    	employeeEntity.setCreatedDate(LocalDate.now());
+    	return employeeEntity;
+    }
+    
+    public static EmployeeEvent mapToEmployeeEventEntity(String[] row) {
+    	EmployeeEvent employeeEvent = new EmployeeEvent();
+    	
+    	employeeEvent.setEmployeeId(row[EmployeeEventRecordFields.EMPLOYEE_ID.getFieldPosition()]);
+    	employeeEvent.setEvent(row[EmployeeEventRecordFields.EVENT.getFieldPosition()]);
+    	employeeEvent.setEventValue(row[EmployeeEventRecordFields.EVENT_VALUE.getFieldPosition()]);
+    	employeeEvent.setNotes(row[EmployeeEventRecordFields.NOTES.getFieldPosition()]);
+    	
+    	employeeEvent.setCreatedDate(LocalDate.now());
+    	
+    	return employeeEvent;
     }
 
 }

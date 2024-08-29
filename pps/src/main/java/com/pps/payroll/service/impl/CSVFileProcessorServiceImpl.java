@@ -15,8 +15,9 @@ import com.pps.payroll.service.CSVFileProcessorService;
 import com.pps.payroll.validator.RecordValidator;
 import com.pps.payroll.mapper.PayrollRecordMapper;
 import com.pps.payroll.ApplicationConstants;
-import com.pps.payroll.dto.EmployeeEventRecord;
-import com.pps.payroll.dto.OnboardEmployeeRecord;
+import com.pps.payroll.dao.EmployeePayrollDao;
+import com.pps.payroll.entity.Employee;
+import com.pps.payroll.entity.EmployeeEvent;
 
 @Service("csvReaderServiceImpl")
 /**
@@ -30,6 +31,9 @@ public class CSVFileProcessorServiceImpl extends BaseFileProcessorServiceImpl im
 
 	@Autowired
 	private RecordValidator recordValidator;
+	
+	@Autowired
+	private EmployeePayrollDao employeePayrollDao;
 
 	@Override
 	/**
@@ -81,11 +85,14 @@ public class CSVFileProcessorServiceImpl extends BaseFileProcessorServiceImpl im
 			// fields
 			// So, we need to find out the record type to map it to appropriate DTO
 			if (isOnboardEmployeeEvent(row)) {
-				OnboardEmployeeRecord onboardEmployeeRecord = PayrollRecordMapper.mapToOnboardEmployeeRecord(row);
-				logger.info(onboardEmployeeRecord.toString());
+				//OnboardEmployeeRecord onboardEmployeeRecord = PayrollRecordMapper.mapToOnboardEmployeeRecord(row);
+				
+				Employee employee = employeePayrollDao.addEmployee(PayrollRecordMapper.mapToEmployeeEntity(row));
+				logger.info(employee.toString());
 			} else {
-				EmployeeEventRecord employeeEventRecord = PayrollRecordMapper.mapToEmployeeEventRecord(row);
-				logger.info(employeeEventRecord.toString());
+				EmployeeEvent employeeEvent = 
+							employeePayrollDao.addEmployeeEvent(PayrollRecordMapper.mapToEmployeeEventEntity(row));
+				logger.info(employeeEvent.toString());
 			}
 		} else {
 			// add invalid record to list and log the sequence number
@@ -94,20 +101,20 @@ public class CSVFileProcessorServiceImpl extends BaseFileProcessorServiceImpl im
 		}
 	}
 
+	
 	/**
-	 * Checks what type of record it is. Currently we are relying on number of
-	 * fields to identify whether it is onboard employee record or employee event
-	 * record
-	 * 
-	 * @param row
-	 * @return true if its onboard employee record
-	 */
-	private boolean isOnboardEmployeeEvent(String[] row) {
-		// TODO see if this can be improved
-		if (row.length > ApplicationConstants.MINIMUM_NUM_FIELDS) {
-			return true;
-		}
-		return false;
-	}
+     * Checks what type of record it is.
+     * Currently we are relying on number of fields to identify whether it is onboard employee record or
+     * employee event record
+     * @param row
+     * @return true if its onboard employee record
+     */
+    private boolean isOnboardEmployeeEvent(String[] row) {
+        //TODO see if this can be improved
+        if (row.length > ApplicationConstants.MINIMUM_NUM_FIELDS) {
+            return true;
+        }
+        return false;
+    }
 
 }
