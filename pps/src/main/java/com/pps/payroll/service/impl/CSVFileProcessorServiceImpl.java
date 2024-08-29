@@ -16,8 +16,11 @@ import com.pps.payroll.service.CSVFileProcessorService;
 import com.pps.payroll.validator.RecordValidator;
 import com.pps.payroll.mapper.PayrollRecordMapper;
 import com.pps.payroll.ApplicationConstants;
+import com.pps.payroll.dao.EmployeePayrollDao;
 import com.pps.payroll.dto.EmployeeEventRecord;
 import com.pps.payroll.dto.OnboardEmployeeRecord;
+import com.pps.payroll.entity.Employee;
+import com.pps.payroll.entity.EmployeeEvent;
 
 @Service("csvReaderServiceImpl")
 /**
@@ -31,6 +34,9 @@ public class CSVFileProcessorServiceImpl extends BaseFileProcessorServiceImpl im
 	
 	@Autowired
 	private RecordValidator recordValidator;
+	
+	@Autowired
+	private EmployeePayrollDao employeePayrollDao;
 
 	@Override
 	/**
@@ -75,11 +81,17 @@ public class CSVFileProcessorServiceImpl extends BaseFileProcessorServiceImpl im
             //For example, onboard employee record has 9 fields while employee event has 6 fields
             //So, we need to find out the record type to map it to appropriate DTO
             if (isOnboardEmployeeEvent(row)) {
-                OnboardEmployeeRecord onboardEmployeeRecord = PayrollRecordMapper.mapToAddEmployeeEventRecord(row);
-                logger.info(onboardEmployeeRecord.toString());
+                //OnboardEmployeeRecord onboardEmployeeRecord = PayrollRecordMapper.mapToAddEmployeeEventRecord(row);
+                
+                //save to DB
+                Employee employee = employeePayrollDao.addEmployee(PayrollRecordMapper.mapToEmployeeEntity(row));
+                
+                logger.info(employee.toString());
             } else {
-                EmployeeEventRecord employeeEventRecord = PayrollRecordMapper.mapToUpdateEmployeeEvent(row);
-                logger.info(employeeEventRecord.toString());
+                //EmployeeEventRecord employeeEventRecord = PayrollRecordMapper.mapToUpdateEmployeeEvent(row);
+                
+                EmployeeEvent employeeEvent = employeePayrollDao.addEmployeeEvent(PayrollRecordMapper.mapToEmployeeEventEntity(row));
+                logger.info(employeeEvent.toString());
             }
         } else {
             //add invalid record to list and log the sequence number
