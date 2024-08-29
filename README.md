@@ -49,3 +49,4 @@ Payroll file processing API is currently synchronous. In v2 version following en
 - Store records in DB after processing.
 - Change /payroll/process API to asynchronous and return back requestId in response with 202 Accepted status
 - Expose another API to return status of running process. Takes input as requestId passed in first API.
+- A new API which takes entire file content as input as Multipart file
