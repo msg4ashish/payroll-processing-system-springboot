@@ -21,7 +21,7 @@ public class RecordValidator {
      * @param record Array of strings representing the record to be validated.
      * @return true if the record is valid
      */
-	public static boolean validateRecord(String[] record) {
+	public boolean validateRecord(String[] record) {
         if(record == null) {
             return false;
         }
@@ -47,7 +47,7 @@ public class RecordValidator {
      * @param eventType The event type to be validated.
      * @return true if its valid event type.
      */
-    private static boolean isValidEventType(String eventType) {
+    private boolean isValidEventType(String eventType) {
         return EnumUtils.isValidEnum(EventType.class, eventType.trim());
     }
 	
