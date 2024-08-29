@@ -21,6 +21,10 @@ Currently, the API is synchronous, but as per the requirement it can be changed 
 
 From eclipse, right click on Project > Coverage As > Junit
 
+## Swagger
+Swagger UI can be accessed via:
+http://localhost:8080/swagger-ui/index.html
+
 ## Code coverage
 Code coverage report can be viewed after running tests. Code coverage plugin comes pre-installed, so once the tests are run, 
 coverage report can be viewed. To run tests with code coverage report: Project > Coverage As > Junit
