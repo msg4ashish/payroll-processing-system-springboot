@@ -25,6 +25,10 @@ Code coverage report can be viewed after running tests. Code coverage plugin com
 coverage report can be viewed. To run tests with code coverage report: Project > Coverage As > Junit
 Code coverage report view can be open from Window > Show View > Other > Search for 'coverage'
 
+## Swagger
+Swagger UI can be accessed via:
+http://localhost:8080/swagger-ui/index.html
+
 ## API request
 
 ### Curl:
