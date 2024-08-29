@@ -75,10 +75,10 @@ public class CSVFileProcessorServiceImpl extends BaseFileProcessorServiceImpl im
             //For example, onboard employee record has 9 fields while employee event has 6 fields
             //So, we need to find out the record type to map it to appropriate DTO
             if (isOnboardEmployeeEvent(row)) {
-                OnboardEmployeeRecord onboardEmployeeRecord = PayrollRecordMapper.mapToAddEmployeeEventRecord(row);
+                OnboardEmployeeRecord onboardEmployeeRecord = PayrollRecordMapper.mapToOnboardEmployeeRecord(row);
                 logger.info(onboardEmployeeRecord.toString());
             } else {
-                EmployeeEventRecord employeeEventRecord = PayrollRecordMapper.mapToUpdateEmployeeEvent(row);
+                EmployeeEventRecord employeeEventRecord = PayrollRecordMapper.mapToEmployeeEventRecord(row);
                 logger.info(employeeEventRecord.toString());
             }
         } else {

@@ -16,7 +16,7 @@ public class PayrollRecordMapper {
      * @param row
      * @return
      */
-	public static OnboardEmployeeRecord mapToAddEmployeeEventRecord(String[] row) {
+	public static OnboardEmployeeRecord mapToOnboardEmployeeRecord(String[] row) {
         return new OnboardEmployeeRecord(
                 row[OnboardEmployeeRecordFields.SEQUENCE_NUMBER.getFieldPosition()],
                 row[OnboardEmployeeRecordFields.EMPLOYEE_ID.getFieldPosition()],
@@ -36,7 +36,7 @@ public class PayrollRecordMapper {
      * @param row
      * @return
      */
-    public static EmployeeEventRecord mapToUpdateEmployeeEvent(String[] row) {
+    public static EmployeeEventRecord mapToEmployeeEventRecord(String[] row) {
         return new EmployeeEventRecord(
                 row[EmployeeEventRecordFields.SEQUENCE_NUMBER.getFieldPosition()],
                 row[EmployeeEventRecordFields.EMPLOYEE_ID.getFieldPosition()],
