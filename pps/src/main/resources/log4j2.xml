@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_PATTERN">%sn [%d] [%r] [%-6p] [%t] %c.%M(%F:%L) - %m%n</Property>
+		<Property name="BASE_FOLDER">${bundle:application:logger.path}</Property>
+		<Property name="BACKUP_FOLDER">backup</Property>
+		<Property name="BASE_FILE">application</Property>
+		<Property name="ERROR_FILE">error</Property>
+	</Properties>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+		</Console>
+		<RollingFile name="applicationLog" fileName="${sys:BASE_FOLDER}/application.log"
+            filePattern="${sys:BASE_FOLDER}/application-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+		<RollingFile name="springLog" fileName="${sys:BASE_FOLDER}/spring-framework.log"
+            filePattern="${sys:BASE_FOLDER}/spring-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+		<RollingFile name="error" fileName="${sys:BASE_FOLDER}/error.log"
+            filePattern="${sys:BASE_FOLDER}/error-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.cleber" additivity="false" level="info">
+			<AppenderRef ref="applicationLog" />
+			<AppenderRef ref="console"/>
+		</Logger>
+		<Logger name="com.cleber.exception" additivity="false" level="error">
+			<AppenderRef ref="error" />
+		</Logger>
+		<Logger name="org.springframework" additivity="false" level="error">
+			<AppenderRef ref="springLog" />
+		</Logger>
+		<Logger name="org.hibernate" additivity="false" level="error">
+			<AppenderRef ref="hibernateLog" />
+		</Logger>
+		<Root level="INFO">
+			<AppenderRef ref="console"/>
+		</Root>
+	</Loggers>
+</Configuration>
